@@ -7,6 +7,7 @@ let bets = {
     come: [] // Array of {amount, point, chipElement}
 };
 
+
 const rollButton = document.getElementById('rollButton');
 const die1Display = document.getElementById('die1');
 const die2Display = document.getElementById('die2');
