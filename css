@@ -1,0 +1,181 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2e7d32; /* Green felt background */
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.table-container {
+    border: 10px solid #8B4513; /* Brown border */
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+#rollButton {
+    font-size: 20px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#dice {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.die {
+    font-size: 100px;
+    margin: 0 10px;
+}
+
+#numbers-top {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.number-box {
+    width: 80px;
+    height: 80px;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 5px;
+    position: relative;
+}
+
+.number-box.active {
+    border-color: yellow;
+    box-shadow: 0 0 10px yellow;
+}
+
+#betting-areas {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.betting-area {
+    width: 180px;
+    height: 100px;
+    border: 2px solid white;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+}
+
+.betting-area::before {
+    content: attr(id);
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 14px;
+    z-index: 1; /* Ensure text stays above chips */
+}
+
+.come-text {
+    color: red;
+}
+
+.field-text {
+    color: yellow;
+}
+
+#chip-rack {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#balance, #point {
+    font-size: 18px;
+    margin: 10px;
+}
+
+/* Chip Styling */
+.chip {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(255, 255, 255, 0.3); /* 3D effect */
+    cursor: pointer;
+}
+
+.chip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: repeating-conic-gradient(
+        var(--segment-color-1) 0deg 15deg,
+        var(--segment-color-2) 15deg 30deg
+    ); /* Segmented edge pattern */
+    z-index: -1;
+}
+
+.chip::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent); /* Glossy center */
+    z-index: 0;
+}
+
+/* $1 Chip - Light Blue */
+.chip-1 {
+    background: radial-gradient(circle, #ADD8E6, #87CEEB); /* Light blue gradient */
+    color: #000000; /* Black text for contrast */
+    --segment-color-1: #FFFFFF; /* White segments */
+    --segment-color-2: #4682B4; /* Steel blue segments */
+}
+
+/* $5 Chip - Purple */
+.chip-5 {
+    background: radial-gradient(circle, #800080, #9932CC); /* Purple gradient */
+    color: #FFFFFF; /* White text */
+    --segment-color-1: #FFFFFF; /* White segments */
+    --segment-color-2: #4B0082; /* Indigo segments */
+}
+
+/* $10 Chip - Black */
+.chip-10 {
+    background: radial-gradient(circle, #000000, #333333); /* Black gradient */
+    color: #FFFFFF; /* White text */
+    --segment-color-1: #FFFFFF; /* White segments */
+    --segment-color-2: #C0C0C0; /* Silver segments */
+}
+
+.chip span {
+    position: relative;
+    z-index: 1; /* Ensure text is above pseudo-elements */
+}
