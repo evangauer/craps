@@ -3,39 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Craps Game</title>
+    <title>Craps Table</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Audio elements for sound effects -->
+    <audio id="diceSound" preload="auto">
+        <source src="sounds/dice-roll.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="chipSound" preload="auto">
+        <source src="sounds/chip-place.mp3" type="audio/mpeg">
+    </audio>
 </head>
 <body>
     <div class="table-container">
-        <button id="rollButton">Roll Dice</button>
+        <div id="bet-tracker">
+            <div id="current-bets">Total Bets: $0</div>
+            <div id="last-win">Won: $0</div>
+        </div>
+
+        <div id="wallet">
+            <div id="balance">Balance: $1000</div>
+        </div>
+
+        <div id="point">Point: Off</div>
+        
         <div id="dice">
             <div id="die1" class="die"></div>
             <div id="die2" class="die"></div>
         </div>
-        <div id="table">
-            <div id="numbers-top">
-                <div class="number-box" data-number="4">4</div>
-                <div class="number-box" data-number="5">5</div>
-                <div class="number-box" data-number="6">6</div>
-                <div class="number-box" data-number="8">8</div>
-                <div class="number-box" data-number="9">9</div>
-                <div class="number-box" data-number="10">10</div>
+        
+        <div id="controls">
+            <button id="rollButton">Roll Dice</button>
+        </div>
+
+        <div class="craps-layout">
+            <!-- Numbers Section -->
+            <div class="numbers-section">
+                <div class="number-box" data-number="4">
+                    <div class="place-payout">9:5</div>
+                    <div class="odds-payout">2:1</div>
+                    <div class="number">4</div>
+                    <div class="odds-area" data-odds="4"></div>
+                </div>
+                <div class="number-box" data-number="5">
+                    <div class="place-payout">7:5</div>
+                    <div class="odds-payout">3:2</div>
+                    <div class="number">5</div>
+                    <div class="odds-area" data-odds="5"></div>
+                </div>
+                <div class="number-box" data-number="6">
+                    <div class="place-payout">7:6</div>
+                    <div class="odds-payout">6:5</div>
+                    <div class="number">6</div>
+                    <div class="odds-area" data-odds="6"></div>
+                </div>
+                <div class="number-box" data-number="8">
+                    <div class="place-payout">7:6</div>
+                    <div class="odds-payout">6:5</div>
+                    <div class="number">8</div>
+                    <div class="odds-area" data-odds="8"></div>
+                </div>
+                <div class="number-box" data-number="9">
+                    <div class="place-payout">7:5</div>
+                    <div class="odds-payout">3:2</div>
+                    <div class="number">9</div>
+                    <div class="odds-area" data-odds="9"></div>
+                </div>
+                <div class="number-box" data-number="10">
+                    <div class="place-payout">9:5</div>
+                    <div class="odds-payout">2:1</div>
+                    <div class="number">10</div>
+                    <div class="odds-area" data-odds="10"></div>
+                </div>
             </div>
-            <div id="betting-areas">
-                <div id="passLine" class="betting-area">PASS LINE</div>
-                <div id="dontPass" class="betting-area">DON'T PASS BAR</div>
-                <div id="come" class="betting-area come-text">COME</div>
-                <div id="field" class="betting-area field-text">FIELD</div>
+
+            <!-- Main Betting Areas -->
+            <div class="betting-areas">
+                <div class="betting-area" id="come">COME</div>
+                <div class="betting-area" id="field">
+                    <div class="field-number double">2</div>
+                    <div class="field-number">3</div>
+                    <div class="field-number">4</div>
+                    <div class="field-number">9</div>
+                    <div class="field-number">10</div>
+                    <div class="field-number">11</div>
+                    <div class="field-number double">12</div>
+                </div>
+                <div class="betting-area" id="dontPass">DON'T PASS BAR</div>
+                <div class="betting-area" id="passLine">PASS LINE</div>
             </div>
         </div>
+
         <div id="chip-rack">
-            <div class="chip chip-1" data-value="1" draggable="true">$1</div>
-            <div class="chip chip-5" data-value="5" draggable="true">$5</div>
-            <div class="chip chip-10" data-value="10" draggable="true">$10</div>
+            <div class="chip chip-1" data-value="1" draggable="true"><span>$1</span></div>
+            <div class="chip chip-5" data-value="5" draggable="true"><span>$5</span></div>
+            <div class="chip chip-10" data-value="10" draggable="true"><span>$10</span></div>
+            <div class="chip chip-25" data-value="25" draggable="true"><span>$25</span></div>
+            <div class="chip chip-100" data-value="100" draggable="true"><span>$100</span></div>
         </div>
-        <div id="balance">Balance: $100</div>
-        <div id="point">Point: none</div>
     </div>
     <script src="script.js"></script>
 </body>
