@@ -1,0 +1,26 @@
+{
+  "name": "craps",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evangauer/craps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evangauer/craps/issues"
+  },
+  "homepage": "https://github.com/evangauer/craps#readme",
+  "description": "",
+  "dependencies": {
+    "cannon-es": "^0.20.0",
+    "express": "^4.21.2",
+    "three": "^0.174.0"
+  }
+}

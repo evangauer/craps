@@ -1,127 +1,105 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #2e7d32; /* Green felt background */
+    background-color: #222;
     color: white;
-    text-align: center;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
-.table-container {
-    border: 10px solid #8B4513; /* Brown border */
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 1000px;
-    margin: 20px auto;
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2E8B57;
+}
+
+#ui-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow clicks to pass through to the canvas */
+    z-index: 10;
+}
+
+#controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 1000;
 }
 
 #rollButton {
-    font-size: 20px;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    background-color: #d32f2f;
+    background-color: #dc3545;
     color: white;
     border: none;
+    padding: 10px 20px;
     border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
-#dice {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+#rollButton:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
 }
 
-.die {
-    font-size: 100px;
-    margin: 0 10px;
-}
-
-#numbers-top {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.number-box {
-    width: 80px;
-    height: 80px;
-    border: 2px solid white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0 5px;
-    position: relative;
-}
-
-.number-box.active {
-    border-color: yellow;
-    box-shadow: 0 0 10px yellow;
-}
-
-#betting-areas {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.betting-area {
-    width: 180px;
-    height: 100px;
-    border: 2px solid white;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: bold;
-    position: relative;
-}
-
-.betting-area::before {
-    content: attr(id);
+#balance, #point {
     position: absolute;
-    top: 5px;
-    left: 5px;
-    font-size: 14px;
-    z-index: 1; /* Ensure text stays above chips */
+    top: 20px;
+    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    pointer-events: auto;
 }
 
-.come-text {
-    color: red;
+#balance {
+    left: 20px;
 }
 
-.field-text {
-    color: yellow;
+#point {
+    right: 20px;
 }
 
 #chip-rack {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
-}
-
-#balance, #point {
-    font-size: 18px;
-    margin: 10px;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 /* Chip Styling */
 .chip {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     text-align: center;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(255, 255, 255, 0.3); /* 3D effect */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(255, 255, 255, 0.3);
     cursor: pointer;
+    z-index: 1000;
 }
 
 .chip::before {
@@ -135,7 +113,7 @@ body {
     background: repeating-conic-gradient(
         var(--segment-color-1) 0deg 15deg,
         var(--segment-color-2) 15deg 30deg
-    ); /* Segmented edge pattern */
+    );
     z-index: -1;
 }
 
@@ -147,35 +125,116 @@ body {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent); /* Glossy center */
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent);
     z-index: 0;
 }
 
 /* $1 Chip - Light Blue */
 .chip-1 {
-    background: radial-gradient(circle, #ADD8E6, #87CEEB); /* Light blue gradient */
-    color: #000000; /* Black text for contrast */
-    --segment-color-1: #FFFFFF; /* White segments */
-    --segment-color-2: #4682B4; /* Steel blue segments */
+    background: radial-gradient(circle, #ADD8E6, #87CEEB);
+    color: #000000;
+    --segment-color-1: #FFFFFF;
+    --segment-color-2: #4682B4;
 }
 
 /* $5 Chip - Purple */
 .chip-5 {
-    background: radial-gradient(circle, #800080, #9932CC); /* Purple gradient */
-    color: #FFFFFF; /* White text */
-    --segment-color-1: #FFFFFF; /* White segments */
-    --segment-color-2: #4B0082; /* Indigo segments */
+    background: radial-gradient(circle, #800080, #9932CC);
+    color: #FFFFFF;
+    --segment-color-1: #FFFFFF;
+    --segment-color-2: #4B0082;
 }
 
 /* $10 Chip - Black */
 .chip-10 {
-    background: radial-gradient(circle, #000000, #333333); /* Black gradient */
-    color: #FFFFFF; /* White text */
-    --segment-color-1: #FFFFFF; /* White segments */
-    --segment-color-2: #C0C0C0; /* Silver segments */
+    background: radial-gradient(circle, #000000, #333333);
+    color: #FFFFFF;
+    --segment-color-1: #FFFFFF;
+    --segment-color-2: #C0C0C0;
 }
 
-.chip span {
-    position: relative;
-    z-index: 1; /* Ensure text is above pseudo-elements */
+/* Loading screen */
+#loading-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+#loading-text {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#loading-bar-container {
+    width: 300px;
+    height: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#loading-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #d32f2f;
+    transition: width 0.3s;
+}
+
+/* Selected chip indicator */
+.chip.selected {
+    box-shadow: 0 0 10px 5px gold;
+}
+
+/* Tooltip for betting areas */
+.tooltip {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    pointer-events: none;
+    z-index: 1000;
+    display: none;
+}
+
+.tooltip.visible {
+    display: block;
+}
+
+/* Betting message */
+.betting-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.betting-message.fade-out {
+    animation: fadeOut 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }

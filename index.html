@@ -3,40 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Craps Game</title>
+    <title>3D Craps Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="table-container">
-        <button id="rollButton">Roll Dice</button>
-        <div id="dice">
-            <div id="die1" class="die"></div>
-            <div id="die2" class="die"></div>
-        </div>
-        <div id="table">
-            <div id="numbers-top">
-                <div class="number-box" data-number="4">4</div>
-                <div class="number-box" data-number="5">5</div>
-                <div class="number-box" data-number="6">6</div>
-                <div class="number-box" data-number="8">8</div>
-                <div class="number-box" data-number="9">9</div>
-                <div class="number-box" data-number="10">10</div>
-            </div>
-            <div id="betting-areas">
-                <div id="passLine" class="betting-area">PASS LINE</div>
-                <div id="dontPass" class="betting-area">DON'T PASS BAR</div>
-                <div id="come" class="betting-area come-text">COME</div>
-                <div id="field" class="betting-area field-text">FIELD</div>
+    <div id="game-container">
+        <div id="canvas-container"></div>
+        <div id="ui-overlay">
+            <div id="balance">Balance: $100</div>
+            <div id="point">Point: none</div>
+            <div id="controls">
+                <button id="rollButton">Roll Dice</button>
+                <div id="chip-rack">
+                    <div class="chip chip-1" data-value="1">$1</div>
+                    <div class="chip chip-5" data-value="5">$5</div>
+                    <div class="chip chip-10" data-value="10">$10</div>
+                </div>
             </div>
         </div>
-        <div id="chip-rack">
-            <div class="chip chip-1" data-value="1" draggable="true">$1</div>
-            <div class="chip chip-5" data-value="5" draggable="true">$5</div>
-            <div class="chip chip-10" data-value="10" draggable="true">$10</div>
-        </div>
-        <div id="balance">Balance: $100</div>
-        <div id="point">Point: none</div>
     </div>
-    <script src="script.js"></script>
+    
+    <!-- Import maps for ES modules -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "/node_modules/three/build/three.module.js",
+                "three/addons/": "/node_modules/three/examples/jsm/",
+                "cannon-es": "/node_modules/cannon-es/dist/cannon-es.js"
+            }
+        }
+    </script>
+    
+    <!-- Main script -->
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
